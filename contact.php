@@ -6,6 +6,7 @@ $connect = mysqli_connect('localhost', 'formuser', 'd%u5U3AmKXdG', 'forms');
 $colour = isset($_POST['colour']) ? $_POST['colour'] : '';
 $month = isset($_POST['month']) ? $_POST['month'] : '';
 $checked = isset($_POST['checked']) ? 1 : 0;
+$name = isset($_POST['name']) ? $_POST['name'] : '';
 $email = isset($_POST['email']) ? $_POST['email'] : '';
 $message = isset($_POST['message']) ? $_POST['message'] : '';
 
@@ -13,6 +14,7 @@ $message = isset($_POST['message']) ? $_POST['message'] : '';
 // set error vars to empty to prevent undefined error
 $colour_err = '';
 $month_err = '';
+$name_err = '';
 $email_err = '';
 $message_err = '';
 
@@ -28,6 +30,10 @@ if (count($_POST)) {
     $errors++;
     $month_err = '*Please select a month*';
   }
+  if ($name == '') {
+    $errors++;
+    $name_err = '*Please enter your name*';
+  }
   if ($email == '') {
     $errors++;
     $email_err = '*Please enter an email address*';
@@ -41,11 +47,12 @@ if (count($_POST)) {
   if ($errors == 0) {
     // addslashes makes sure special characters input right
     $query =
-      'INSERT INTO contact (colour, month, passed, email, message) 
+      'INSERT INTO contact (colour, month, passed, name, email, message) 
       VALUES (
         "' . $colour . '",
         "' . $month . '",
         "' . $checked . '",
+        "' . addslashes($_POST['name']) . '",
         "' . addslashes($_POST['email']) . '",
         "' . addslashes($_POST['message']) . '"
       )';
@@ -54,7 +61,7 @@ if (count($_POST)) {
     mysqli_query($connect, $query);
 
     // redirect to thank you page
-    header('Location: thanks.html');
+    header('Location: thanks.php');
 
     //don't execute anything more
     die();
@@ -117,6 +124,11 @@ if (count($_POST)) {
     <br>
     <input type="checkbox" name="checked">
     <br><br>
+
+    Name:
+    <br>
+    <input type="text" name="name" value="<?php echo $name; ?>">
+    <?php echo "<p class='errormsg'>$name_err</p>"; ?>
 
     Email:
     <br>

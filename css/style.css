@@ -20,3 +20,15 @@ p {
 .errormsg {
   color: #ff0000;
 }
+
+.form-info {
+  width: 100%;
+  margin: auto;
+}
+
+@media screen and (min-width: 1000px) {
+ .form-info {
+   width: 50%;
+   text-align: center;
+ }
+}

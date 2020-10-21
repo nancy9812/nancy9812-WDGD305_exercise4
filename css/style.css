@@ -1,0 +1,22 @@
+html {
+  background-color: #222222;
+  color: #defdef;
+  font-family: sans-serif;
+}
+
+form {
+  width: 240px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+}
+
+p {
+  margin-bottom: 20px;
+}
+
+.errormsg {
+  color: #ff0000;
+}
